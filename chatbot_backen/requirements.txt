@@ -1,0 +1,18 @@
+# Core Flask dependencies
+Flask==3.0.0
+Flask-CORS==4.0.0
+
+# Database
+mongoengine==0.28.2
+
+# Google AI and ADK
+google-generativeai==0.8.3
+google-adk==0.2.1
+
+# Utilities
+python-dotenv==1.0.0
+requests==2.31.0
+Werkzeug==3.0.1
+
+# Optional for production
+gunicorn==21.2.0
