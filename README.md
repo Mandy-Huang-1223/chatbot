@@ -1,184 +1,120 @@
-# Weather Agent Integration - Complete Setup Guide
 
-This guide shows you how to use the newly integrated Weather Agent in your chatbot project.
+# Gemini Chatbot – Multi-Modal Chat & Chatroom App
 
-## What's New
+This app lets you chat with a Gemini-powered AI assistant using both text and images, and manage multiple chatrooms. You can send messages, upload images, create or delete chatrooms, and ask for real-time weather and time information for cities worldwide.
 
-Your chatbot now includes a Weather Agent powered by Google's Agent Development Kit (ADK) that can:
+## ✨ Features
 
-1. **Get Current Weather** - Real-time weather for any city
-2. **Get Current Time** - Current time in different cities worldwide
-3. **Get Weather Forecasts** - 1-5 day weather forecasts
-4. **Automatic Detection** - The regular chat automatically detects and handles weather queries
+- **Chat with Gemini AI**: Send text or images and get intelligent responses from the Gemini robot.
+- **Image Upload**: Send images to Gemini for analysis and conversation.
+- **Multiple Chatrooms**: Create, switch, and delete chatrooms for different topics or groups.
+- **Weather & Time Queries**: Ask about the weather or current time in any major city, powered by the integrated Weather Agent.
 
-## 🌟 Key Feature: Seamless Integration
 
-**No special interface needed!** Simply chat naturally and ask weather questions alongside regular conversation. The system automatically detects weather queries and provides intelligent responses.
+## 🚀 Getting Started
 
-## How to Start the Application
+### 1. Backend (Flask)
 
-### Backend (Flask)
-
-1. **Navigate to backend directory:**
+1. Open a terminal and navigate to the backend folder:
    ```bash
    cd chatbot_backen
    ```
-
-2. **Install dependencies:**
+2. Install Python dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-
-3. **Set up API keys (optional but recommended):**
-   
-   Edit `weather_agent/.env`:
-   ```
-   GOOGLE_API_KEY=your_google_ai_studio_key_here
-   OPENWEATHER_API_KEY=your_openweather_key_here
-   ```
-   
+3. *(Optional, for real weather data)* Set up API keys:
+   - Edit `weather_agent/.env` and add:
+     ```
+     GOOGLE_API_KEY=your_google_ai_studio_key_here
+     OPENWEATHER_API_KEY=your_openweather_key_here
+     ```
    - Get Google AI Studio key: https://aistudio.google.com/apikey
-   - Get OpenWeatherMap key: https://openweathermap.org/api (free)
-
-4. **Start the Flask server:**
+   - Get OpenWeatherMap key: https://openweathermap.org/api
+4. Start the backend server:
    ```bash
    python app.py
    ```
 
-### Frontend (React)
+### 2. Frontend (React)
 
-1. **Navigate to frontend directory:**
+1. Open a new terminal and navigate to the frontend folder:
    ```bash
    cd chat-bot-react
    ```
-
-2. **Install dependencies:**
+2. Install dependencies:
    ```bash
    npm install
    ```
-
-3. **Start the development server:**
+3. Start the frontend development server:
    ```bash
    npm run dev
    ```
 
-## Using the Weather Agent
+The app will be available at the URL shown in your terminal (usually http://localhost:5173).
 
-Simply type weather-related questions directly in the regular chat interface:
 
-**Example Queries:**
-- "What's the weather in New York?"
-- "Current time in Tokyo"
-- "Is it raining in London?"
-- "5-day forecast for Paris"
-- "Temperature in Sydney"
+## 🧑‍💻 How to Use
 
-The system automatically detects these queries and uses the Weather Agent instead of regular Gemini AI. No special interface or tab switching is needed - just chat naturally!
+### Chatting with Gemini
+- Type a message in the chat input and press Enter to send.
+- To send an image, use the image upload button (paperclip or image icon), select an image, and send it. Gemini will analyze and respond to both text and images.
 
-## API Endpoints
+### Managing Chatrooms
+- **Create a chatroom:** Click the “+” or “New Chatroom” button, enter a name, and confirm.
+- **Switch chatrooms:** Click on a chatroom tab to switch.
+- **Delete a chatroom:** Click the delete/trash icon on a chatroom tab and confirm.
 
-### Regular Message Endpoint (Now with Weather Detection)
-**POST** `/api/messages/gemini`
+### Weather & Time Queries
+- Ask questions like:
+   - "What's the weather in New York?"
+   - "Current time in Tokyo"
+   - "5-day forecast for Paris"
+- The app will automatically detect and answer weather/time questions using the Weather Agent.
 
-Automatically detects weather queries and routes them to the Weather Agent.
 
-### Weather Capabilities (Optional)
-**GET** `/api/messages/weather/capabilities`
+## 🌍 Supported Cities for Weather
+The Weather Agent supports most major cities worldwide (e.g., New York, London, Tokyo, Paris, Sydney, and more).
 
-Returns information about supported functions and cities for development/debugging purposes.
 
-## Supported Cities
+## 🛠️ Troubleshooting
 
-The Weather Agent supports major cities worldwide including:
+**Backend issues:**
+- Make sure all Python dependencies are installed: `pip install -r requirements.txt`
+- Python 3.9+ is required
+- If using real weather, check your API keys in `weather_agent/.env`
 
-**Americas:** New York, Los Angeles, Chicago, Toronto, Vancouver, Mexico City, São Paulo, Buenos Aires
+**Frontend issues:**
+- Make sure all dependencies are installed: `npm install`
+- If you see errors, try restarting the dev server
 
-**Europe:** London, Paris, Berlin, Rome, Madrid, Moscow
+**Database issues:**
+- Ensure MongoDB is running and the connection string in `app.py` is correct
 
-**Asia-Pacific:** Tokyo, Beijing, Mumbai, Singapore, Dubai, Sydney
+**Weather not working?**
+- Without API keys, mock data is used
+- Try major cities if a city is not found
 
-**And many more...**
 
-## Features
+## 📝 Example Conversations
 
-### Smart Detection
-The system intelligently detects weather-related queries using keywords like:
-- weather, temperature, forecast, rain, sunny, cloudy
-- time, current time, what time, clock
-- Specific patterns like "weather in [city]"
+**Text & Image Chat:**
+> User: "Show me a cat picture!" *(uploads image)*
+> Gemini: "That's a cute cat! Did you know cats sleep up to 16 hours a day?"
 
-### Fallback Support
-- If no OpenWeatherMap API key is provided, uses realistic mock data
-- If a city isn't supported, provides helpful error messages
-- Network errors are handled gracefully
+**Weather Query:**
+> User: "What's the weather in New York?"
+> Gemini: "The weather in New York is sunny with a temperature of 25°C."
 
-### Integration Benefits
-- All weather conversations are saved in your MongoDB database
-- Weather responses appear as regular chat messages
-- Seamless, natural chat experience with automatic weather detection
-- No need to switch interfaces or learn new commands
+**Chatroom Management:**
+> User creates a new chatroom "Work" and switches between "Work" and "Friends" chatrooms.
 
-## Testing
+**Seamless Experience:**
+> User: "Tell me a joke"
+> Gemini: "Why don't scientists trust atoms? Because they make up everything!"
 
-Test the weather agent functionality:
 
-```bash
-cd chatbot_backen
-python test_weather_agent.py
-```
-
-## Example Conversations
-
-**User:** "What's the weather like in New York?"
-**AI:** "The weather in New York is Sunny with a temperature of 25°C (77°F). Light wind from the southwest."
-
-**User:** "What time is it in Tokyo?"
-**AI:** "The current time in Tokyo is 2025-08-15 19:09:45 JST+0900"
-
-**User:** "Give me the 3-day forecast for London"
-**AI:** "Weather forecast for London:
-Tomorrow: Overcast, 17°C (63°F)
-Day 2: Light rain, 15°C (59°F)
-Day 3: Partly cloudy, 19°C (66°F)"
-
-**User:** "Thanks! Now tell me a joke"
-**AI:** "Why don't scientists trust atoms? Because they make up everything!"
-
-*Notice how you can seamlessly switch between weather queries and regular chat!*
-
-## Troubleshooting
-
-### Common Issues
-
-1. **"Weather information not available"**
-   - Check city name spelling
-   - Try major cities like "New York", "London", "Tokyo"
-
-2. **Import errors**
-   - Ensure all dependencies are installed: `pip install -r requirements.txt`
-   - Check Python version (3.9+ required)
-
-3. **React compilation errors**
-   - Make sure all frontend dependencies are installed
-   - The chatbot should work with standard React and Material-UI components
-
-4. **Database connection issues**
-   - Make sure MongoDB is running
-   - Check connection string in `app.py`
-
-### API Key Setup (Optional)
-
-Without API keys, the system works with mock data. For production:
-
-1. **Google AI Studio Key** (for ADK):
-   - Required for the full ADK experience
-   - Get from: https://aistudio.google.com/apikey
-
-2. **OpenWeatherMap Key** (for real weather):
-   - Optional - system uses mock data without it
-   - Get free key from: https://openweathermap.org/api
-
-## Architecture Overview
+## 🏗️ Architecture Overview
 
 ```
 Project Structure:
@@ -192,14 +128,10 @@ Project Structure:
 │   ├── models.py              # Database models
 │   └── requirements.txt       # Python dependencies
 └── chat-bot-react/
-    └── src/App.tsx            # Regular chat with weather integration
+   └── src/App.tsx            # Main React app (chat, image, chatrooms)
 ```
 
-## Next Steps
 
-1. **Get Real API Keys** for production use
-2. **Customize Weather Functions** - Add more cities or weather features
-3. **Extend the Agent** - Add more tools like maps, traffic, etc.
-4. **Deploy** - Use the deployment guides in the ADK documentation
+---
 
-Enjoy your new Weather Agent! 🌤️
+Enjoy chatting with Gemini, sharing images, and managing your own chatrooms!
