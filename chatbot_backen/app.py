@@ -4,6 +4,7 @@ from flask_cors import CORS
 from mongoengine import connect
 from models import ChatRoom, Message
 from chatbot_api import message_bp  # Import the chatbot Blueprint
+import git  
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -13,6 +14,17 @@ connect('chatbot', host='mongodb://localhost:27017/')  # <--- Changed this line
 
 # Register the chatbot Blueprint
 app.register_blueprint(message_bp, url_prefix='/api')  # Mount the chatbot API under /api
+
+
+@app.route('/update_server', methods=['POST'])
+def webhook():
+    if request.method == 'POST':
+        repo = git.Repo('path/to/git_repo')
+        origin = repo.remotes.origin
+        origin.pull()
+        return 'Updated PythonAnywhere successfully', 200
+    else:
+        return 'Wrong event type', 400
 
 @app.route('/api/chatRooms', methods=['GET'])
 def get_chatRooms():
